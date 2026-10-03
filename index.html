@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گردونه شانس</title>
+  <style>
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f0f2f5; font-family: sans-serif; }
+    #wheel { border-radius: 50%; border: 5px solid #333; }
+    #spin { margin-top: 20px; padding: 10px 20px; font-size: 18px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <canvas id="wheel" width="300" height="300"></canvas>
+  <button id="spin">چرخاندن!</button>
+  <script>
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const items = ['جایزه ۱', 'جایزه ۲', 'جایزه ۳', 'جایزه ۴'];
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33'];
+    
+    function draw() {
+      const arc = (2 * Math.PI) / items.length;
+      for (let i = 0; i < items.length; i++) {
+        ctx.beginPath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 140, i * arc, (i + 1) * arc);
+        ctx.fill();
+        ctx.save();
+        ctx.fillStyle = "#fff";
+        ctx.translate(150 + Math.cos(i * arc + arc / 2) * 90, 150 + Math.sin(i * arc + arc / 2) * 90);
+        ctx.fillText(items[i], -20, 0);
+        ctx.restore();
+      }
+    }
+    draw();
+  </script>
+</body>
+</html>
